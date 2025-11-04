@@ -1,4 +1,3 @@
-import 'package:talker_logger/talker_logger.dart';  // TalkerLogType, TalkerSettings, TimeFormat
 import 'package:talker/talker.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 

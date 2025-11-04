@@ -12,7 +12,6 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,

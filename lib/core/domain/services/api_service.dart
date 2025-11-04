@@ -56,7 +56,7 @@ abstract class ApiServices {
   Future<BaseResponseModel> put(
       String path, {
         JSON? queryParams,
-        dynamic? body,
+        dynamic body,
         FormData? formData,
         CancelToken? cancelToken,
       });

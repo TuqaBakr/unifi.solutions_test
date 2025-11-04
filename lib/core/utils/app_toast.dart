@@ -5,9 +5,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:unifi_solutions/core/utils/theme/colors_manager.dart';
 import 'package:unifi_solutions/core/utils/theme/values_manager.dart';
 import '../constants/enums/toast_status.dart';
-import '../cubits/app_cubit.dart';
-import '../data/data_sources/local.dart';
-import '../domain/services/injection.dart';
 
 class AppToast {
   static showToast({
@@ -16,9 +13,7 @@ class AppToast {
     required BuildContext context,
   }) {
     showToastWidget(
-      textDirection: LocalStorage.getLocale(context).languageCode == 'ar'
-          ? TextDirection.rtl
-          : TextDirection.ltr,
+      textDirection:TextDirection.ltr,
       duration: const Duration(seconds: 5),
       context: context,
       ToastWidget(
@@ -93,9 +88,7 @@ class ToastWidget extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: inject<AppCubit>().isDark
-                                        ? ColorsManager.black
-                                        : Theme.of(context).primaryColor,
+                                    color:Theme.of(context).primaryColor,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -112,9 +105,7 @@ class ToastWidget extends StatelessWidget {
                                       line,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: inject<AppCubit>().isDark
-                                            ? ColorsManager.black
-                                            : Theme.of(context).primaryColor,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                     );
                                   }).toList(),

@@ -15,7 +15,7 @@ class CustomTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.next,
     this.onFieldSubmitted,
     this.onTap,
-    this.borderColor, // ✅ اللون المخصص (اختياري)
+    this.borderColor,
   });
 
   final TextEditingController controller;
@@ -63,7 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity (0.5),
+            color: Colors.grey.withValues (alpha: 0.5),
             spreadRadius: 1.5,
             blurRadius: 7,
             offset: const Offset(0, 5),

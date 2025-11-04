@@ -1,33 +1,19 @@
   import 'package:json_annotation/json_annotation.dart';
 
+import '../../../features/manage_users/domain/entities/user_entity.dart';
+
   part 'user_model.g.dart';
 
   @JsonSerializable(checked: true)
-  class UserModel {
-    final int id;
-    final String fullName;
-    final String email;
-    final String gender;
-    final String phone;
-    final String? birthDate;
-    final String role;
-    final int? recordStatus;
-    @JsonKey(name: 'creationDate')
-    final DateTime? creationDate;
-    @JsonKey(name: 'modificationDate')
-    final DateTime? modificationDate;
+  class UserModel extends UserEntity {
 
-    UserModel( {
-      required this.id,
-      required this.fullName,
-      required this.email,
-      required this.gender,
-      required this.phone,
-      this.birthDate,
-      required this.role,
-       this.recordStatus,
-       this.creationDate,
-      this.modificationDate,
+    // يجب استخدام const في البناء إذا كان الكلاس يرث من Equatable
+    const UserModel({
+      required super.id,
+      required super.name,
+      required super.email,
+      required super.gender,
+      required super.status,
     });
 
     factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -35,29 +21,25 @@
 
     Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
-    UserModel copyWith({
-      int? id,
-      String? fullName,
-      String? email,
-      String? gender,
-      String? phone,
-      String? birthDate,
-      String? role,
-      int? recordStatus,
-      DateTime? creationDate,
-      DateTime? modificationDate,
-    }) {
+    // دالة تحويل Model إلى Entity (صريحة وواضحة)
+    UserEntity toEntity() {
+      return UserEntity(
+        id: id,
+        name: name,
+        email: email,
+        gender: gender,
+        status: status,
+      );
+    }
+
+    // دالة مساعدة لإنشاء Model من Entity (مفيدة لـ POST)
+    factory UserModel.fromEntity(UserEntity entity) {
       return UserModel(
-        id: id ?? this.id,
-        fullName: fullName ?? this.fullName,
-        email: email ?? this.email,
-        gender: gender ?? this.gender,
-        phone: phone ?? this.phone,
-        birthDate: birthDate ?? this.birthDate,
-        role: role ?? this.role,
-        recordStatus: recordStatus ?? this.recordStatus,
-        creationDate: creationDate ?? this.creationDate,
-        modificationDate: modificationDate ?? this.modificationDate,
+        id: entity.id,
+        name: entity.name,
+        email: entity.email,
+        gender: entity.gender,
+        status: entity.status,
       );
     }
   }

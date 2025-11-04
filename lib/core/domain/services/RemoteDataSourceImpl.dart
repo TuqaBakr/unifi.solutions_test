@@ -1,17 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import '../../data/models/base_response_model.dart';
 import '../../typedefs.dart';
-import 'api_service.dart';
-// ignore: avoid_web_libraries_in_flutter
-
+import 'RemoteDataSource.dart';
 typedef ProgressCallback = void Function(int sent, int total);
 
 
-class ApiServicesImp implements ApiServices {
-  final Dio _dio;
-  ApiServicesImp(this._dio);
+class RemoteDataSourceImpl implements RemoteDataSource {
+  final Dio dio;
+  RemoteDataSourceImpl({required this.dio});
 
   @override
   Future<BaseResponseModel> delete(
@@ -21,7 +18,7 @@ class ApiServicesImp implements ApiServices {
         CancelToken? cancelToken,
       }) async {
     try {
-      final response = await _dio.delete(
+      final response = await dio.delete(
         path,
         queryParameters: queryParams,
         data: body,
@@ -40,7 +37,7 @@ class ApiServicesImp implements ApiServices {
         CancelToken? cancelToken,
       }) async {
     try {
-      final response = await _dio.get(
+      final response = await dio.get(
         path,
         queryParameters: queryParams,
         cancelToken: cancelToken,
@@ -61,7 +58,7 @@ class ApiServicesImp implements ApiServices {
         CancelToken? cancelToken,
       }) async {
     try {
-      final response = await _dio.post(
+      final response = await dio.post(
         path,
         queryParameters: queryParams,
         data: formData ?? body,
@@ -83,7 +80,7 @@ class ApiServicesImp implements ApiServices {
         CancelToken? cancelToken,
       }) async {
     try {
-      final response = await _dio.patch(
+      final response = await dio.patch(
         path,
         queryParameters: queryParams,
         data: formData ?? body,
@@ -116,15 +113,14 @@ class ApiServicesImp implements ApiServices {
       assert(!(formData != null && body != null),
       'Provide either `formData` (multipart) or `body` (JSON), not both.');
 
-      // Merge headers for this call (without mutating _dio.options.headers)
       final headers = <String, dynamic>{
-        ...?_dio.options.headers,
+        ...dio.options.headers,
         ...?extraHeaders,
         // If multipart, let Dio set boundary automatically
         if (formData != null) 'Content-Type': 'multipart/form-data',
       };
 
-      final response = await _dio.post(
+      final response = await dio.post(
         path,
         data: formData ?? body,
         queryParameters: queryParams,
@@ -187,7 +183,7 @@ class ApiServicesImp implements ApiServices {
         CancelToken? cancelToken,
       }) async {
     try {
-      final response = await _dio.post(
+      final response = await dio.post(
         path,
         queryParameters: queryParams,
         data: formData ?? body,
@@ -203,12 +199,12 @@ class ApiServicesImp implements ApiServices {
   Future<BaseResponseModel> put(
       String path, {
         JSON? queryParams,
-        dynamic? body,
+        dynamic body,
         FormData? formData,
         CancelToken? cancelToken,
       }) async {
     try {
-      final response = await _dio.put(
+      final response = await dio.put(
         path,
         queryParameters: queryParams,
         data: formData ?? body,
@@ -239,7 +235,7 @@ class ApiServicesImp implements ApiServices {
         FormData? formData,
       }) async {
     try {
-      final response = await _dio.download(
+      final response = await dio.download(
         path,
         savePath,
         onReceiveProgress: (count, total) {},

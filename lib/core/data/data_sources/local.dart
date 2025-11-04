@@ -72,7 +72,4 @@ class LocalStorage {
     }
   }
 
-  static Locale getLocale(BuildContext context) {
-    return AppConstants.locales[0];
-  }
 }

@@ -32,6 +32,7 @@ abstract class NetworkExceptions with _$NetworkExceptions implements Exception {
 
   const factory NetworkExceptions.sendTimeout() = SendTimeout;
 
+
   const factory NetworkExceptions.conflict() = Conflict;
 
   const factory NetworkExceptions.internalServerError() = InternalServerError;

@@ -2,23 +2,30 @@ import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
   final String message;
-  const Failure(this.message);
+  final int? statusCode;
+
+  const Failure({required this.message, this.statusCode});
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message, statusCode];
 }
 
-// 1. الفشل في الاتصال بالسيرفر
+/// A failure that occurs due to network issues (e.g., no internet connection).
+class NetworkFailure extends Failure {
+  const NetworkFailure({super.message = 'No Internet Connection'});
+}
+
+/// A failure that occurs on the server side (e.g., 404, 500 status codes).
 class ServerFailure extends Failure {
-  const ServerFailure(String message) : super(message);
+  const ServerFailure({required super.message, required int super.statusCode});
 }
 
-// 2. الفشل في تخزين البيانات محلياً
-class CacheFailure extends Failure {
-  const CacheFailure(String message) : super(message);
-}
-
-// 3. فشل التحقق من البيانات
+/// A failure specifically for authentication or validation issues (e.g., 401 Unauthorized, 422 Unprocessable Entity, Duplicate Email).
 class ValidationFailure extends Failure {
-  const ValidationFailure(String message) : super(message);
+  const ValidationFailure({required super.message, required int super.statusCode});
+}
+
+/// A general failure for unknown errors.
+class LocalFailure extends Failure {
+  const LocalFailure({super.message = 'An unknown local error occurred'});
 }

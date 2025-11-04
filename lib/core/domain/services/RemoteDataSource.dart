@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data/models/base_response_model.dart';
 import '../../typedefs.dart';
 
-abstract class ApiServices {
+abstract class RemoteDataSource {
   Future<BaseResponseModel> get(
       String path, {
         JSON? queryParams,

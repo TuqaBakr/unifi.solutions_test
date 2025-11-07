@@ -5,6 +5,7 @@ import '../../../features/manage_users/domain/entities/user_entity.dart';
 
 part 'user_model.g.dart';
 
+@HiveType(typeId: 0)
 @JsonSerializable(checked: true)
 class UserModel extends UserEntity {
 

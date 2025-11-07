@@ -10,7 +10,9 @@ import '../../../features/manage_users/domain/user_repository.dart';
 import '../../../features/manage_users/domain/user_repository_imp.dart';
 import '../../../features/manage_users/presentation/cubit/user_cubit.dart';
 import '../../data/data_sources/user_local_data_source.dart';
+import '../../data/models/user_model.dart';
 import '../../interceptors/token_interceptor.dart';
+
 
 
 final getIt = GetIt.instance;
